@@ -1,0 +1,30 @@
+2020-03-28 23:10:24.537  INFO 1452 --- [main] c.k.i.InstagramApiApplication            : Starting InstagramApiApplication on mayanks-MBP.Dlink with PID 1452 (/Users/mayankjain/Workspaces/instagram/instagram-api/bin/main started by mayankjain in /Users/mayankjain/Workspaces/instagram/instagram-api)
+2020-03-28 23:10:24.540  INFO 1452 --- [main] c.k.i.InstagramApiApplication            : No active profile set, falling back to default profiles: default
+2020-03-28 23:10:25.434  INFO 1452 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2020-03-28 23:10:25.451  INFO 1452 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12ms. Found 0 MongoDB repository interfaces.
+2020-03-28 23:10:25.877  INFO 1452 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-03-28 23:10:25.886  INFO 1452 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-03-28 23:10:25.886  INFO 1452 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.33]
+2020-03-28 23:10:25.975  INFO 1452 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-03-28 23:10:25.976 DEBUG 1452 --- [main] o.s.web.context.ContextLoader            : Published root WebApplicationContext as ServletContext attribute with name [org.springframework.web.context.WebApplicationContext.ROOT]
+2020-03-28 23:10:25.976  INFO 1452 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1386 ms
+2020-03-28 23:10:26.315  INFO 1452 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2020-03-28 23:10:26.376  INFO 1452 --- [cluster-ClusterId{value='5e7f8c0a3b61f12c1b1d1eeb', description='null'}-localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:7}] to localhost:27017
+2020-03-28 23:10:26.406  INFO 1452 --- [cluster-ClusterId{value='5e7f8c0a3b61f12c1b1d1eeb', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 2, 2]}, minWireVersion=0, maxWireVersion=8, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=6253624}
+2020-03-28 23:10:26.803  INFO 1452 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-03-28 23:10:26.814 DEBUG 1452 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-03-28 23:10:26.857 DEBUG 1452 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 2 mappings in 'requestMappingHandlerMapping'
+2020-03-28 23:10:26.894 DEBUG 1452 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-03-28 23:10:26.904 DEBUG 1452 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-03-28 23:10:27.100  INFO 1452 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2020-03-28 23:10:27.174  INFO 1452 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-03-28 23:10:27.179  INFO 1452 --- [main] c.k.i.InstagramApiApplication            : Started InstagramApiApplication in 3.084 seconds (JVM running for 4.153)
+2020-03-28 23:10:27.184  INFO 1452 --- [main] c.k.i.InstagramApiApplication            : This is a test log
+2020-03-28 23:10:27.184 ERROR 1452 --- [main] c.k.i.InstagramApiApplication            : Error encountered
+2020-03-28 23:10:28.030  INFO 1452 --- [RMI TCP Connection(1)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-03-28 23:10:28.030  INFO 1452 --- [RMI TCP Connection(1)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-03-28 23:10:28.030 DEBUG 1452 --- [RMI TCP Connection(1)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2020-03-28 23:10:28.040 DEBUG 1452 --- [RMI TCP Connection(1)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2020-03-28 23:10:28.041  INFO 1452 --- [RMI TCP Connection(1)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 11 ms
+2020-03-28 23:12:19.106  INFO 1452 --- [RMI TCP Connection(3)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2020-03-28 23:12:19.113  INFO 1452 --- [RMI TCP Connection(3)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
