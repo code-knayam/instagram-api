@@ -24,6 +24,10 @@ public class UserDetailsDto {
 	@Getter
 	@Setter
 	private String email;
+	
+	@Getter
+	@Setter
+	private String imageUrl;
 
 	@Getter
 	@Setter

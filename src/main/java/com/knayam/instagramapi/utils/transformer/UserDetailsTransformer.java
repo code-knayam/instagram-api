@@ -28,6 +28,9 @@ public class UserDetailsTransformer implements Transformer<UserDetails, UserDeta
 		if(userDetails.getEmail() != null)
 			userDetailsDto.setEmail(userDetails.getEmail());
 		
+		if(userDetails.getImageUrl() != null)
+			userDetailsDto.setImageUrl(userDetails.getImageUrl());
+		
 		if(userDetails.getDateOfBirth() != null)
 			userDetailsDto.setDateOfBirth(userDetails.getDateOfBirth());
 		
