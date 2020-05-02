@@ -15,6 +15,7 @@ public class AppConfig {
 			public void addCorsMappings(CorsRegistry corsRegistry) {
 				corsRegistry
 					.addMapping("/**")
+					.allowedOrigins("*")
 					.allowedHeaders("*")
 					.allowedMethods("*");
 			}
