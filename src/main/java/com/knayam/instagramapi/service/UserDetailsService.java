@@ -3,6 +3,7 @@ package com.knayam.instagramapi.service;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.knayam.instagramapi.domain.Follow;
 import com.knayam.instagramapi.dto.request.AddUserDetailRequest;
 import com.knayam.instagramapi.dto.response.UserDetailsDto;
 
@@ -23,4 +24,6 @@ public interface UserDetailsService {
 	public boolean isUsernameUnique(String userName);
 	
 	public boolean isUserFollowed(String userId1, String userId2);
+	
+	public Follow followUser(String userId1, String userId2);
 }

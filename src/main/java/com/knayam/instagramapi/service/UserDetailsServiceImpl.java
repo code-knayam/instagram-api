@@ -1,5 +1,6 @@
 package com.knayam.instagramapi.service;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -203,5 +204,36 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		
 		
 		return isUserFollowed;
+	}
+	
+	@Override
+	public Follow followUser(String userId1, String userId2) throws UserNotFoundException {
+		if(!userDetailsRepository.existsById(userId1)) {
+			LOGGER.error("Error finding user", "User ID - " + userId1);
+			throw new UserNotFoundException("User not found -" + userId1);
+		}
+		
+		if(!userDetailsRepository.existsById(userId2)) {
+			LOGGER.error("Error finding user", "User ID - " + userId2);
+			throw new UserNotFoundException("User not found -" + userId2);
+		}
+		
+		Follow data = null;
+		
+		try {
+			data = new Follow();
+			
+			data.setFolloweeId(userId1);
+			data.setFollowerId(userId2);
+			data.setTimestamp(Instant.now());
+			
+			followRepository.save(data);
+									
+		} catch(Exception e) {
+			LOGGER.error("Error following user", e.getMessage(), e.getStackTrace());
+		}
+		
+		
+		return data;
 	}
 }

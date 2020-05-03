@@ -10,10 +10,10 @@ import com.knayam.instagramapi.domain.Follow;
 
 public interface FollowRepository extends MongoRepository<Follow, String> {
 
-	@Query("{followerId: ?0}")
+	@Query("{followeeId: ?0}")
 	public ArrayList<Follow> findAllFollowersById(String id);
 	
-	@Query("{followeeId: ?0}")
+	@Query("{followerId: ?0}")
 	public ArrayList<Follow> findAllFolloweesById(String id);
 }
 
