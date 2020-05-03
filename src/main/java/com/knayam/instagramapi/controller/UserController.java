@@ -201,5 +201,31 @@ public class UserController {
 		return new ResponseEntity<Boolean>(isUserNameUnique, new HttpHeaders(), status);
 	}
 	
+	@GetMapping("/follows/{userId1}/{userId2}")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "User details found"),
+			@ApiResponse(code = 401, message = "Not authorized"),
+			@ApiResponse(code = 403, message = "Forbidden resource"),
+			@ApiResponse(code = 404, message = "user not found")
+	})
+	public ResponseEntity<Boolean> isUserFollowed(
+			@ApiParam(value = "User Id 1") @PathVariable("userId1") String userId1,
+			@ApiParam(value = "User Id 1") @PathVariable("userId2") String userId2) {
+		HttpStatus status;
+		boolean isUserFollowed  = false;
+		
+		try {
+			isUserFollowed = userDetailsService.isUserFollowed(userId1, userId2);
+			status = HttpStatus.OK;
+		} catch(UserNotFoundException e) { 
+			status = HttpStatus.NOT_FOUND;
+			LOGGER.error("Is User followed", e.getMessage(), e.getStackTrace());
+		} catch(Exception e) {
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			LOGGER.error("Is User followed", e.getMessage(), e.getStackTrace());	
+		}
+		
+		return new ResponseEntity<Boolean>(isUserFollowed, new HttpHeaders(), status);
+	}
 	
 }

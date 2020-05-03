@@ -103,28 +103,28 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			throw new UserNotFoundException("User not found -" + id);
 		}
 		
-		ArrayList<UserDetailsDto> followers = new ArrayList<UserDetailsDto>();
+		ArrayList<UserDetailsDto> followees = new ArrayList<UserDetailsDto>();
 		
 		try {
-			ArrayList<Follow> followersData = followRepository.findAllFolloweesById(id);
+			ArrayList<Follow> followeesData = followRepository.findAllFolloweesById(id);
 			
-			followersData.stream().forEach(data -> {
-				String followerId = data.getFollowerId();
-				UserDetailsDto follower = findUserById(followerId);
+			followeesData.stream().forEach(data -> {
+				String followeeId = data.getFolloweeId();
+				UserDetailsDto followee = findUserById(followeeId);
 				
-				if(follower != null) {
-					followers.add(follower);
+				if(followee != null) {
+					followees.add(followee);
 				}				
 			});			
 		} catch(Exception e) {
 			LOGGER.error("Error finding followees", "User ID - " + id, e.getMessage(), e.getStackTrace());
 		}
 		
-		return followers;
+		return followees;
 	}
 	
 	@Override
-	public boolean deactivateUserByUserId(String id) {
+	public boolean deactivateUserByUserId(String id) throws UserNotFoundException {
 		if(!userDetailsRepository.existsById(id)) {
 			LOGGER.error("Error finding user", "User ID - " + id);
 			throw new UserNotFoundException("User not found -" + id);
@@ -168,5 +168,40 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		}
 		
 		return isUserNameUnique;
+	}
+	
+	@Override
+	public boolean isUserFollowed(String userId1, String userId2) throws UserNotFoundException{
+
+		if(!userDetailsRepository.existsById(userId1)) {
+			LOGGER.error("Error finding user", "User ID - " + userId1);
+			throw new UserNotFoundException("User not found -" + userId1);
+		}
+		
+		if(!userDetailsRepository.existsById(userId2)) {
+			LOGGER.error("Error finding user", "User ID - " + userId2);
+			throw new UserNotFoundException("User not found -" + userId2);
+		}
+		
+		boolean isUserFollowed = false;
+		
+		try {
+			ArrayList<Follow> followeesData = followRepository.findAllFolloweesById(userId1);
+			
+			for(int index = 0; index<followeesData.size(); index++) {
+				Follow d = followeesData.get(index);
+				
+				if(d.getFollowerId().equals(userId2)) {
+					isUserFollowed = true;
+					break;
+				}
+			}
+						
+		} catch(Exception e) {
+			LOGGER.error("Error finding user followed", e.getMessage(), e.getStackTrace());
+		}
+		
+		
+		return isUserFollowed;
 	}
 }

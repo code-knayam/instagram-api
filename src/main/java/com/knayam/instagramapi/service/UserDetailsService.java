@@ -21,4 +21,6 @@ public interface UserDetailsService {
 	public UserDetailsDto addNewUser(AddUserDetailRequest userDetails);
 	
 	public boolean isUsernameUnique(String userName);
+	
+	public boolean isUserFollowed(String userId1, String userId2);
 }
