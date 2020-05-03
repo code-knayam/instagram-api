@@ -34,6 +34,10 @@ public class AddUserDetailsRequestTransformer implements Transformer<AddUserDeta
 		
 		details.setTimestamp(Instant.now());
 		
+		details.setFollowees(0);
+		
+		details.setFollowers(0);
+		
 		return details;
 	}
 }

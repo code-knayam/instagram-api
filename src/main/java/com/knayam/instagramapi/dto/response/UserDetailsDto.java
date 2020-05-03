@@ -32,6 +32,14 @@ public class UserDetailsDto {
 	@Getter
 	@Setter
 	private String userBio;
+	
+	@Getter
+	@Setter
+	private Integer followers;
+	
+	@Getter
+	@Setter
+	private Integer followees;
 
 	@Getter
 	@Setter

@@ -47,6 +47,14 @@ public class UserDetails {
 	
 	@Getter
 	@Setter
+	private Integer followers;
+	
+	@Getter
+	@Setter
+	private Integer followees;
+	
+	@Getter
+	@Setter
 	private String dateOfBirth;
 	
 	@Getter
