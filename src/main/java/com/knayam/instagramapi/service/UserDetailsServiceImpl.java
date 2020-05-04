@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.knayam.instagramapi.domain.Follow;
+import com.knayam.instagramapi.domain.User;
 import com.knayam.instagramapi.domain.UserDetails;
 import com.knayam.instagramapi.dto.request.AddUserDetailRequest;
 import com.knayam.instagramapi.dto.response.UserDetailsDto;
@@ -37,7 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private final static Logger LOGGER = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 	
 	@Override
-	public UserDetailsDto findUserById(String id) {
+	public UserDetailsDto findUserById(String id) throws UserNotFoundException {
 		UserDetailsDto userDetailsDto = null;
 				
 		try {
@@ -45,10 +46,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			
 			if(userDetails == null) {
 				LOGGER.error("User not found - " + id);
-				return null;
+				throw new UserNotFoundException("User not found -" + id);
 			} else {
 				LOGGER.info("User found - " + id);
+																
 				userDetailsDto = userDetailsTransformer.transformTo(userDetails);
+				
+				userDetailsDto.setFollowers(Integer.parseInt(followRepository.countFollowersById(id).toString()));
+				userDetailsDto.setFollowees(Integer.parseInt(followRepository.countFolloweesById(id).toString()));
+				
 			}			
 		} catch(Exception e) {
 			LOGGER.error("Error finding user", "User ID - " + id, e.getMessage(), e.getStackTrace());
@@ -192,7 +198,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			for(int index = 0; index<followeesData.size(); index++) {
 				Follow d = followeesData.get(index);
 				
-				if(d.getFollowerId().equals(userId2)) {
+				if(d.getFolloweeId().equals(userId2)) {
 					isUserFollowed = true;
 					break;
 				}
@@ -223,8 +229,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		try {
 			data = new Follow();
 			
-			data.setFolloweeId(userId1);
-			data.setFollowerId(userId2);
+			data.setFolloweeId(userId2);
+			data.setFollowerId(userId1);
 			data.setTimestamp(Instant.now());
 			
 			followRepository.save(data);
@@ -235,5 +241,27 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		
 		
 		return data;
+	}
+	
+	@Override
+	public String getUserName(String id) throws UserNotFoundException {
+		if(!userDetailsRepository.existsById(id)) {
+			LOGGER.error("Error finding user", "User ID - " + id);
+			throw new UserNotFoundException("User not found -" + id);
+		}
+		
+		String userName = "";
+		
+		try {
+			UserDetails user = userDetailsRepository.findById(id).orElse(null);
+		
+			if(user != null) {
+				userName = user.getUsername();	
+			}		
+		} catch(Exception e) {
+			LOGGER.error("Error finding username", e.getMessage(), e.getStackTrace());
+		}
+		
+		return userName;
 	}
 }

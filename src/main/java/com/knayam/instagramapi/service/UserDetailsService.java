@@ -26,4 +26,6 @@ public interface UserDetailsService {
 	public boolean isUserFollowed(String userId1, String userId2);
 	
 	public Follow followUser(String userId1, String userId2);
+	
+	public String getUserName(String id);
 }

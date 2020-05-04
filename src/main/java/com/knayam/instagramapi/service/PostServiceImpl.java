@@ -48,6 +48,9 @@ public class PostServiceImpl implements PostService {
 				LOGGER.error("Post not found - " + id);
 			} else {
 				postDto = postTransformer.transformTo(post);
+				
+				postDto.setUserName(userDetailsService.getUserName(postDto.getUserId()));
+				
 				LOGGER.info("Post found - " + id);
 			}
 		} catch(Exception e) {

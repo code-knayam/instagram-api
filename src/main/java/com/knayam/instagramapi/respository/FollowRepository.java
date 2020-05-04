@@ -15,5 +15,11 @@ public interface FollowRepository extends MongoRepository<Follow, String> {
 	
 	@Query("{followerId: ?0}")
 	public ArrayList<Follow> findAllFolloweesById(String id);
+	
+	@Query(value = "{followeeId: ?0}", count = true)
+	public Long countFollowersById(String id);
+	
+	@Query(value = "{followerId: ?0}", count = true)
+	public Long countFolloweesById(String id);
 }
 

@@ -56,9 +56,12 @@ public class UserController {
 			if(userDetailsDto != null) {
 				status = HttpStatus.OK; 
 			} else {
-				status = HttpStatus.NOT_FOUND;
+				status = HttpStatus.INTERNAL_SERVER_ERROR;
 				LOGGER.error("Get Users details by id failed", "user id - " + id);
 			}					
+		} catch(UserNotFoundException e) {
+			status = HttpStatus.NOT_FOUND;
+			LOGGER.error("Get user details by user id failed", "user id - " + id, e.getMessage(), e.getStackTrace());
 		} catch(Exception e) {
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 			LOGGER.error("Get Users details by id failed", "user id - " + id, e.getMessage(), e.getStackTrace());

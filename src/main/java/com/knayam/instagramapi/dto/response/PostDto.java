@@ -21,6 +21,10 @@ public class PostDto {
 	
 	@Getter
 	@Setter
+	private String userName;
+	
+	@Getter
+	@Setter
 	private String mediaUrl;
 	
 	@Getter

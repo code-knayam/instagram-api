@@ -30,16 +30,6 @@ public class UserDetailsTransformer implements Transformer<UserDetails, UserDeta
 		
 		if(userDetails.getImageUrl() != null)
 			userDetailsDto.setImageUrl(userDetails.getImageUrl());
-
-		if(userDetails.getFollowers() != null)
-			userDetailsDto.setFollowers(userDetails.getFollowers());
-		else
-			userDetailsDto.setFollowers(0);
-		
-		if(userDetails.getFollowees() != null)
-			userDetailsDto.setFollowees(userDetails.getFollowees());
-		else
-			userDetailsDto.setFollowees(0);
 		
 		if(userDetails.getDateOfBirth() != null)
 			userDetailsDto.setDateOfBirth(userDetails.getDateOfBirth());
