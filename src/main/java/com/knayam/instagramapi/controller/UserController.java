@@ -258,4 +258,31 @@ public class UserController {
 		
 		return new ResponseEntity<Follow>(followUser, new HttpHeaders(), status);
 	}
+	
+	@PostMapping("/unfollow/{userId1}/{userId2}")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "User details found"),
+			@ApiResponse(code = 401, message = "Not authorized"),
+			@ApiResponse(code = 403, message = "Forbidden resource"),
+			@ApiResponse(code = 404, message = "user not found")
+	})
+	public ResponseEntity<Follow> unfollowUser(
+			@ApiParam(value = "User Id 1") @PathVariable("userId1") String userId1,
+			@ApiParam(value = "User Id 1") @PathVariable("userId2") String userId2) {
+		HttpStatus status;
+		Follow followUser = null;
+		
+		try {
+			followUser = userDetailsService.unfollowUser(userId1, userId2);
+			status = HttpStatus.OK;
+		} catch(UserNotFoundException e) { 
+			status = HttpStatus.NOT_FOUND;
+			LOGGER.error("User not found", e.getMessage(), e.getStackTrace());
+		} catch(Exception e) {
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			LOGGER.error("Follow user", e.getMessage(), e.getStackTrace());	
+		}
+		
+		return new ResponseEntity<Follow>(followUser, new HttpHeaders(), status);
+	}
 }

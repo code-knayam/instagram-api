@@ -27,5 +27,7 @@ public interface UserDetailsService {
 	
 	public Follow followUser(String userId1, String userId2);
 	
+	public Follow unfollowUser(String userId1, String userId2);
+	
 	public String getUserName(String id);
 }

@@ -246,6 +246,35 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	}
 	
 	@Override
+	public Follow unfollowUser(String userId1, String userId2) throws UserNotFoundException {
+		if(!userDetailsRepository.existsById(userId1)) {
+			LOGGER.error("Error finding user", "User ID - " + userId1);
+			throw new UserNotFoundException("User not found -" + userId1);
+		}
+		
+		if(!userDetailsRepository.existsById(userId2)) {
+			LOGGER.error("Error finding user", "User ID - " + userId2);
+			throw new UserNotFoundException("User not found -" + userId2);
+		}
+			
+		Follow follow = null;
+		
+		try {
+			follow = followRepository.findByFollowerFollowee(userId1, userId2);
+			
+			if(follow != null) {
+				followRepository.delete(follow);				
+			}
+									
+		} catch(Exception e) {
+			LOGGER.error("Error following user", e.getMessage(), e.getStackTrace());
+		}
+		
+		
+		return follow;
+	}
+	
+	@Override
 	public String getUserName(String id) throws UserNotFoundException {
 		if(!userDetailsRepository.existsById(id)) {
 			LOGGER.error("Error finding user", "User ID - " + id);
