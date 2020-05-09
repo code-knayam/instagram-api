@@ -40,6 +40,10 @@ public class UserDetailsDto {
 	@Getter
 	@Setter
 	private Integer followees;
+	
+	@Getter
+	@Setter
+	private Boolean isFollowed;
 
 	@Getter
 	@Setter

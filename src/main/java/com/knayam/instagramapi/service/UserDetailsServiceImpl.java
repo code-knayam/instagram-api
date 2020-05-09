@@ -93,6 +93,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 				UserDetailsDto follower = findUserById(followerId);
 				
 				if(follower != null) {
+					follower.setIsFollowed(isUserFollowed(id, followerId));
 					followers.add(follower);
 				}				
 			});			
@@ -120,6 +121,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 				UserDetailsDto followee = findUserById(followeeId);
 				
 				if(followee != null) {
+					followee.setIsFollowed(isUserFollowed(id, followeeId));
 					followees.add(followee);
 				}				
 			});			
