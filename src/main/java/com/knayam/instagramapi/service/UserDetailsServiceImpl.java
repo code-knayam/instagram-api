@@ -2,6 +2,7 @@ package com.knayam.instagramapi.service;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -14,11 +15,14 @@ import com.knayam.instagramapi.domain.User;
 import com.knayam.instagramapi.domain.UserDetails;
 import com.knayam.instagramapi.dto.request.AddUserDetailRequest;
 import com.knayam.instagramapi.dto.response.UserDetailsDto;
+import com.knayam.instagramapi.dto.response.UserSearchDto;
 import com.knayam.instagramapi.exception.UserNotFoundException;
+import com.knayam.instagramapi.queries.UserDetailsQueries;
 import com.knayam.instagramapi.respository.FollowRepository;
 import com.knayam.instagramapi.respository.UserDetailsRepository;
 import com.knayam.instagramapi.utils.transformer.AddUserDetailsRequestTransformer;
 import com.knayam.instagramapi.utils.transformer.UserDetailsTransformer;
+import com.knayam.instagramapi.utils.transformer.UserSearchTransformer;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -33,7 +37,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private UserDetailsTransformer userDetailsTransformer;
 	
 	@Autowired
+	private UserSearchTransformer userSearchTransformer;
+	
+	@Autowired
 	private AddUserDetailsRequestTransformer addUserDetailsRequestTransformer;
+	
+	@Autowired
+	private UserDetailsQueries userDetailsQueries;
 	
 	private final static Logger LOGGER = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 	
@@ -294,5 +304,22 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		}
 		
 		return userName;
+	}
+	
+	@Override
+	public ArrayList<UserSearchDto> searchUser(String query) {
+		ArrayList<UserSearchDto> users = new ArrayList<UserSearchDto>();
+		
+		try {
+			List<UserDetails> details = userDetailsQueries.findByFreeText(query);
+			
+			details.stream().forEach(data -> {
+				users.add(userSearchTransformer.transformTo(data));				
+			});
+		} catch(Exception e) {
+			LOGGER.error("Error searching users", e.getMessage(), e.getStackTrace());
+		}
+
+		return users;
 	}
 }

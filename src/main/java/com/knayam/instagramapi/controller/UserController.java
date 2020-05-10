@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.knayam.instagramapi.domain.Follow;
 import com.knayam.instagramapi.dto.request.AddUserDetailRequest;
 import com.knayam.instagramapi.dto.response.UserDetailsDto;
+import com.knayam.instagramapi.dto.response.UserSearchDto;
 import com.knayam.instagramapi.exception.UserNotFoundException;
 import com.knayam.instagramapi.service.UserDetailsServiceImpl;
 
@@ -284,5 +285,27 @@ public class UserController {
 		}
 		
 		return new ResponseEntity<Follow>(followUser, new HttpHeaders(), status);
+	}
+	
+	@GetMapping("/search/{query}")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "User details found"),
+			@ApiResponse(code = 401, message = "Not authorized"),
+			@ApiResponse(code = 403, message = "Forbidden resource")
+	})
+	public ResponseEntity<ArrayList<UserSearchDto>>  searchUser(
+			@ApiParam(value = "Search Query") @PathVariable("query") String query) {
+		ArrayList<UserSearchDto> userDetailsDtos = null;
+		HttpStatus status;
+		
+		try {
+			userDetailsDtos = userDetailsService.searchUser(query);
+			status = HttpStatus.OK;
+		} catch(Exception e) {
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			LOGGER.error("Search User failed", e.getMessage(), e.getStackTrace());
+		}		
+		
+		return new ResponseEntity<ArrayList<UserSearchDto>>(userDetailsDtos, new HttpHeaders(), status);
 	}
 }

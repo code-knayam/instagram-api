@@ -6,6 +6,7 @@ import java.util.UUID;
 import com.knayam.instagramapi.domain.Follow;
 import com.knayam.instagramapi.dto.request.AddUserDetailRequest;
 import com.knayam.instagramapi.dto.response.UserDetailsDto;
+import com.knayam.instagramapi.dto.response.UserSearchDto;
 
 public interface UserDetailsService {
 
@@ -30,4 +31,6 @@ public interface UserDetailsService {
 	public Follow unfollowUser(String userId1, String userId2);
 	
 	public String getUserName(String id);
+	
+	public ArrayList<UserSearchDto> searchUser(String query);
 }

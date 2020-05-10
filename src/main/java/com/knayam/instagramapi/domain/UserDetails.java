@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.annotation.Generated;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
@@ -27,10 +28,12 @@ public class UserDetails {
 	
 	@Getter
 	@Setter
+	@TextIndexed
 	private String username;
 	
 	@Getter
 	@Setter
+	@TextIndexed(weight = 2)
 	private String name;
 	
 	@Getter
