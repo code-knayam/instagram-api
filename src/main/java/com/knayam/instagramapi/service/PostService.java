@@ -23,4 +23,7 @@ public interface PostService {
 	public PostDto updatePost(String postId, String userId, MultipartFile file, String caption );
 	
 	public boolean likePost(String postId, String userId);
+	
+	public ArrayList<PostDto> getPostsFeedByUserId(String userId);
+
 }

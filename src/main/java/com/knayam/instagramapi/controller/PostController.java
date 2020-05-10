@@ -1,7 +1,6 @@
 package com.knayam.instagramapi.controller;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -240,4 +239,29 @@ public class PostController {
 		return new ResponseEntity<Boolean>(isPostLiked, new HttpHeaders(), status);
 	}
 	
+	@GetMapping("/user/feed/{userId}")
+	@ApiOperation(value = "Get post feed for user ")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Post found"),
+			@ApiResponse(code = 401, message = "Not authorized"),
+			@ApiResponse(code = 403, message = "Forbidden resource"),
+			@ApiResponse(code = 404, message = "User not found"),
+	})
+	public ResponseEntity<ArrayList<PostDto>> getPostsFeedByUserid(
+			@ApiParam(value="User id") @PathVariable("userId") String userId) {
+		
+		ArrayList<PostDto> posts = null;
+		HttpStatus status;
+		
+		try {
+			posts = postService.getPostsFeedByUserId(userId);
+			
+			status = HttpStatus.OK;
+		} catch (UserNotFoundException e) {						
+			status = HttpStatus.NOT_FOUND;
+			LOGGER.error("Get All Posts By user id failed", "User id - " + userId, e.getMessage(), e.getStackTrace());
+		}		
+		
+		return new ResponseEntity<ArrayList<PostDto>>(posts, new HttpHeaders(), status);
+	}
 }

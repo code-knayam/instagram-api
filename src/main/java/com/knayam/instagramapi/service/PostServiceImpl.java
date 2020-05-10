@@ -75,6 +75,8 @@ public class PostServiceImpl implements PostService {
 			posts.stream().forEach(post -> {
 				if(post.isActive()) {
 					PostDto postDto = postTransformer.transformTo(post);
+					postDto.setUserName(userDetailsService.getUserName(postDto.getUserId()));
+
 					postsDto.add(postDto);					
 				}
 			});
@@ -256,4 +258,33 @@ public class PostServiceImpl implements PostService {
 		return isPostLiked;
 	}
 
+	@Override
+	public ArrayList<PostDto> getPostsFeedByUserId(String userId) throws UserNotFoundException {
+		if (!userDetailsService.userExists(userId)) {
+			LOGGER.error("User not found with ID - " + userId);
+			throw new UserNotFoundException("User not found.");
+		}
+		
+		ArrayList<PostDto> postsDto = new ArrayList<>();
+		
+		try {
+			ArrayList<Post> posts = postRepository.findAllByUserId(userId);
+			
+			posts.stream().forEach(post -> {
+				if(post.isActive()) {
+					PostDto postDto = postTransformer.transformTo(post);
+					postDto.setUserName(userDetailsService.getUserName(postDto.getUserId()));
+
+					postsDto.add(postDto);					
+				}
+			});
+			
+			LOGGER.info("Post found for userid - " + userId);
+			
+		} catch(Exception e) {
+			LOGGER.error("Error finding Posts by user", "User ID - " + userId, e.getMessage(), e.getStackTrace());
+		}
+		
+		return postsDto;
+	}
 }
